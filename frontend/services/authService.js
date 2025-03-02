@@ -36,3 +36,15 @@ export const logoutUser = () => {
 
 
 
+export const refreshToken = async (refreshToken) => {
+    try {
+      const response = await api.post("users/token/refresh/", { refresh: refreshToken });
+      const { access } = response.data;
+      localStorage.setItem("access_token", access);
+      return response.data;
+    } catch (error) {
+      console.error("Refresh Error:", error.response?.data || error);
+      throw error;
+    }
+  };
+
